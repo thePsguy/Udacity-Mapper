@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		4D8A86DA1D8821EF009CBB29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A86D91D8821EF009CBB29 /* AppDelegate.swift */; };
-		4D8A86DC1D8821EF009CBB29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A86DB1D8821EF009CBB29 /* ViewController.swift */; };
+		4D8A86DC1D8821EF009CBB29 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A86DB1D8821EF009CBB29 /* LoginViewController.swift */; };
 		4D8A86DF1D8821EF009CBB29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A86DD1D8821EF009CBB29 /* Main.storyboard */; };
 		4D8A86E11D8821EF009CBB29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A86E01D8821EF009CBB29 /* Assets.xcassets */; };
 		4D8A86E41D8821EF009CBB29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A86E21D8821EF009CBB29 /* LaunchScreen.storyboard */; };
+		4D8A86EC1D884D03009CBB29 /* CoolTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A86EB1D884D03009CBB29 /* CoolTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4D8A86D61D8821EF009CBB29 /* Udacity Mapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Udacity Mapper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8A86D91D8821EF009CBB29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4D8A86DB1D8821EF009CBB29 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D8A86DB1D8821EF009CBB29 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4D8A86DE1D8821EF009CBB29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D8A86E01D8821EF009CBB29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D8A86E31D8821EF009CBB29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D8A86E51D8821EF009CBB29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D8A86EB1D884D03009CBB29 /* CoolTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoolTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +57,9 @@
 			isa = PBXGroup;
 			children = (
 				4D8A86D91D8821EF009CBB29 /* AppDelegate.swift */,
-				4D8A86DB1D8821EF009CBB29 /* ViewController.swift */,
+				4D8A86DB1D8821EF009CBB29 /* LoginViewController.swift */,
 				4D8A86DD1D8821EF009CBB29 /* Main.storyboard */,
+				4D8A86EB1D884D03009CBB29 /* CoolTextField.swift */,
 				4D8A86E01D8821EF009CBB29 /* Assets.xcassets */,
 				4D8A86E21D8821EF009CBB29 /* LaunchScreen.storyboard */,
 				4D8A86E51D8821EF009CBB29 /* Info.plist */,
@@ -136,8 +139,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D8A86DC1D8821EF009CBB29 /* ViewController.swift in Sources */,
+				4D8A86DC1D8821EF009CBB29 /* LoginViewController.swift in Sources */,
 				4D8A86DA1D8821EF009CBB29 /* AppDelegate.swift in Sources */,
+				4D8A86EC1D884D03009CBB29 /* CoolTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
