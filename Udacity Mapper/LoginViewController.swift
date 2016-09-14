@@ -40,11 +40,11 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func passwordReturned(sender: AnyObject) {
-        self.resignFirstResponder()
-        loginTapped(sender)
+        loginTapped(self)
     }
     
     @IBAction func loginTapped(sender: AnyObject) {
+        passwordField.resignFirstResponder()
         if emailField.text == "" || passwordField.text == "" {
             print("Incomplete form.")
         }else{

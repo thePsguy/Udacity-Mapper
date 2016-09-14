@@ -77,7 +77,10 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         // When the array is complete, we add the annotations to the map.
-        self.mapView.addAnnotations(annotations)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            self.mapView.addAnnotations(self.annotations)
+        })
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
