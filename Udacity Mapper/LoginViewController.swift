@@ -12,23 +12,23 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var overlayView: UIView!
 
     let uc = udacityClient.sharedInstance()
     let pc = parseClient.sharedInstance()
     
+    override func viewWillAppear(animated: Bool) {
+        overlayView.hidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         loginButton.layer.cornerRadius = 5
         emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         
-        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        for cookie in sharedCookieStorage.cookies! {
-            if cookie.name == "sso_auth" && cookie.sessionOnly == false && NSDate.init().compare(cookie.expiresDate!) == .OrderedAscending && cookie.domain == ".udacity.com"{
-                print("Pre Auth!")
-                uc.checkUdacityAuth(self)
-            }
-        }
+        uc.checkUdacityAuth(self)
     }
     
     @IBAction func signUpTapped(sender: AnyObject) {
@@ -48,6 +48,7 @@ class LoginViewController: UIViewController {
         if emailField.text == "" || passwordField.text == "" {
             print("Incomplete form.")
         }else{
+            overlayView.hidden = false
             uc.udacityAuth(emailField.text!, password: passwordField.text!, vc: self)
         }
     }

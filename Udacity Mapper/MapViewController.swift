@@ -26,10 +26,13 @@ class MapViewController: UIViewController {
         uc.deleteSession(self)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        refreshTapped(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        refreshTapped(self)
     }
     
     @IBAction func refreshTapped(sender: AnyObject) {

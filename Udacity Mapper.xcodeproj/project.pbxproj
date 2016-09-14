@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D5856EF1D8973CB00E68575 /* InfoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5856EE1D8973CB00E68575 /* InfoPostViewController.swift */; };
+		4D5856F11D89A2A700E68575 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5856F01D89A2A700E68575 /* UserObject.swift */; };
 		4D7858191D891D8E0088A62A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7858181D891D8E0088A62A /* MapViewController.swift */; };
 		4D78581D1D8926170088A62A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D78581C1D8926170088A62A /* ListViewController.swift */; };
 		4D8A86DA1D8821EF009CBB29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A86D91D8821EF009CBB29 /* AppDelegate.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		4D5856EE1D8973CB00E68575 /* InfoPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostViewController.swift; sourceTree = "<group>"; };
+		4D5856F01D89A2A700E68575 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		4D7858181D891D8E0088A62A /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4D78581C1D8926170088A62A /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		4D8A86D61D8821EF009CBB29 /* Udacity Mapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Udacity Mapper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +154,7 @@
 			children = (
 				4DDADDBA1D89485700C190E3 /* ParseClient.swift */,
 				4DDADDBE1D894A1700C190E3 /* Student.swift */,
+				4D5856F01D89A2A700E68575 /* UserObject.swift */,
 			);
 			name = Parse;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				4DDADDB41D893ED100C190E3 /* UdacityConstants.swift in Sources */,
 				4DDADDBF1D894A1700C190E3 /* Student.swift in Sources */,
 				4D8A86DA1D8821EF009CBB29 /* AppDelegate.swift in Sources */,
+				4D5856F11D89A2A700E68575 /* UserObject.swift in Sources */,
 				4DDADDB81D8945E500C190E3 /* UdacityConvenience.swift in Sources */,
 				4D7858191D891D8E0088A62A /* MapViewController.swift in Sources */,
 				4D8A86EC1D884D03009CBB29 /* CoolTextField.swift in Sources */,

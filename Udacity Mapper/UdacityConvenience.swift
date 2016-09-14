@@ -11,7 +11,7 @@ import UIKit
 
 extension udacityClient {
 
-    func udacityAuth(username: String, password: String, vc: UIViewController){        
+    func udacityAuth(username: String, password: String, vc: LoginViewController){
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -32,10 +32,8 @@ extension udacityClient {
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
             let parsed = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments) as! NSDictionary
             if parsed["error"] == nil && parsed["account"]!["registered"]! as! Bool == true{
-                let uid = Int(parsed["account"]!["key"]! as! String)
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    vc.performSegueWithIdentifier("loggedIn", sender: uid)
-                }
+                let uid = Int(parsed["account"]!["key"]! as! String)!
+                self.getUserDataForID(uid, vc: vc)
             }
             else if parsed["error"] != nil{
                 let alert = UIAlertController(title: "Error!", message: parsed["error"] as? String, preferredStyle: UIAlertControllerStyle.Alert)
@@ -48,36 +46,64 @@ extension udacityClient {
         task.resume()
     }
     
-    func checkUdacityAuth(vc: UIViewController){
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        request.HTTPMethod = "GET"
+    func checkUdacityAuth(vc: LoginViewController){
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "sso_auth" && cookie.sessionOnly == false && NSDate.init().compare(cookie.expiresDate!) == .OrderedAscending && cookie.domain == ".udacity.com"{
+                print("Pre Authorized.")
+                
+                let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+                request.HTTPMethod = "GET"
+                let session = NSURLSession.sharedSession()
+                let task = session.dataTaskWithRequest(request) { data, response, error in
+                    if error != nil { // Handle error…
+                        print("ERROR: ", error)
+                        return
+                    }
+                    let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+                    let parsed = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments) as! NSDictionary
+                    if parsed["error"] == nil && parsed["account"]!["registered"]! as! Bool == true{
+                        let uid = Int(parsed["account"]!["key"]! as! String)!
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            let alert = UIAlertController(title: "Existing Session Found", message: "Log in automatically?", preferredStyle: UIAlertControllerStyle.Alert)
+                            
+                            alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
+                                vc.overlayView.hidden = false
+                                self.getUserDataForID(uid, vc: vc)
+                            }))
+                            
+                            alert.addAction(UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(action: UIAlertAction) in
+                                self.deleteSession(vc)
+                            })
+                            )
+                            vc.presentViewController(alert, animated: true, completion: nil)
+                        }
+                    }else{
+                        let alert = UIAlertController(title: "Session not found", message: "Please login above.", preferredStyle: UIAlertControllerStyle.Alert)
+                        vc.presentViewController(alert, animated: true, completion: nil)
+                    }
+                }
+                task.resume()
+            }
+        }
+    }
+    
+    func getUserDataForID(userID: Int, vc: LoginViewController){
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/" + String(userID))!)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
+            if error != nil { // Handle error...
                 print("ERROR: ", error)
                 return
             }
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            let parsed = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments) as! NSDictionary
-            if parsed["error"] == nil && parsed["account"]!["registered"]! as! Bool == true{
-                let uid = Int(parsed["account"]!["key"]! as! String)
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    let alert = UIAlertController(title: "Session found", message: "Logging in automatically.", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    alert.addAction(UIAlertAction.init(title: "Login", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
-                        vc.performSegueWithIdentifier("loggedIn", sender: uid)
-                    }))
-                    
-                    alert.addAction(UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(action: UIAlertAction) in
-                        self.deleteSession(vc)
-                    })
-                    )
-                    
-                    vc.presentViewController(alert, animated: true, completion: nil)
-                }
-            }else{
-                let alert = UIAlertController(title: "Session not found", message: "Please login above.", preferredStyle: UIAlertControllerStyle.Alert)
-                vc.presentViewController(alert, animated: true, completion: nil)
+            let parsed = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+            let appDel = (UIApplication.sharedApplication().delegate as! AppDelegate)
+            appDel.userObject.id = userID
+            appDel.userObject.firstName = parsed["user"]!!["first_name"]! as! String
+            appDel.userObject.lastName = parsed["user"]!!["last_name"]! as! String
+            NSOperationQueue.mainQueue().addOperationWithBlock{
+                vc.performSegueWithIdentifier("loggedIn", sender: self)
             }
         }
         task.resume()
