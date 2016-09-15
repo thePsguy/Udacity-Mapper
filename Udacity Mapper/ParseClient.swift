@@ -57,15 +57,14 @@ final class parseClient {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error…
                 completion(error: "Network Error")
+                return
             }
             let dataDict = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
             if(dataDict["error"]! != nil){
                 completion(error: "Error: " + (dataDict["error"] as! String))
             }else{
-                print("Object Created.")
                 completion(error: nil)
             }
-
         }
         task.resume()
     }

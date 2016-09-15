@@ -109,6 +109,7 @@ class InfoPostViewController: UIViewController {
             })
         }else{
             self.toggleActivityIndicator()
+            print("called")
             let alert = UIAlertController(title: "Incorrect URL", message: "Please Enter Correct URL", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
             }))
