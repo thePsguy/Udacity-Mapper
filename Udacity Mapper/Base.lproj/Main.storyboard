@@ -109,6 +109,9 @@
                             <view alpha="0.71999999999999997" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Sq-7e-dSP">
                                 <rect key="frame" x="0.0" y="-5" width="600" height="605"/>
                                 <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="0xp-XS-9z7">
+                                        <rect key="frame" x="290" y="444" width="20" height="20"/>
+                                    </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Wait..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfR-rb-baL">
                                         <rect key="frame" x="219" y="472" width="162" height="36"/>
                                         <constraints>
@@ -122,6 +125,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="0xp-XS-9z7" firstAttribute="centerX" secondItem="mfR-rb-baL" secondAttribute="centerX" id="BeL-Ed-O3x"/>
+                                    <constraint firstItem="mfR-rb-baL" firstAttribute="top" secondItem="0xp-XS-9z7" secondAttribute="bottom" constant="8" symbolic="YES" id="Ery-y3-BbE"/>
                                     <constraint firstItem="mfR-rb-baL" firstAttribute="centerX" secondItem="8Sq-7e-dSP" secondAttribute="centerX" id="KlU-Vv-Mey"/>
                                     <constraint firstAttribute="bottom" secondItem="mfR-rb-baL" secondAttribute="bottom" constant="97" id="NMd-8B-kWW"/>
                                 </constraints>
@@ -142,6 +147,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="0xp-XS-9z7" id="SaV-ST-4dH"/>
                         <outlet property="emailField" destination="lPf-wT-poa" id="9PB-ux-GQD"/>
                         <outlet property="loginButton" destination="wdI-XV-MHf" id="6PL-qr-Erg"/>
                         <outlet property="overlayView" destination="8Sq-7e-dSP" id="1BS-0a-k0Z"/>
@@ -479,10 +485,15 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="rcT-kB-0Cn">
+                                        <rect key="frame" x="290" y="444" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="RVc-fA-rWz" secondAttribute="bottom" constant="97" id="afE-Eu-nWs"/>
+                                    <constraint firstItem="rcT-kB-0Cn" firstAttribute="centerX" secondItem="RVc-fA-rWz" secondAttribute="centerX" id="bTg-0J-9Rj"/>
+                                    <constraint firstItem="RVc-fA-rWz" firstAttribute="top" secondItem="rcT-kB-0Cn" secondAttribute="bottom" constant="8" symbolic="YES" id="eCt-Jq-Tdu"/>
                                     <constraint firstItem="RVc-fA-rWz" firstAttribute="centerX" secondItem="n3s-AQ-Wca" secondAttribute="centerX" id="iqG-r1-WDQ"/>
                                 </constraints>
                             </view>
@@ -500,6 +511,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="rcT-kB-0Cn" id="tNT-Ci-VMd"/>
                         <outlet property="findButton" destination="vnv-CG-mzn" id="U5x-HT-YB1"/>
                         <outlet property="locationField" destination="hWc-ti-1zd" id="t2z-AE-GtA"/>
                         <outlet property="mapView" destination="Rkh-HM-Mj1" id="Rlx-Ts-bij"/>

@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     let uc = udacityClient.sharedInstance()
     let pc = parseClient.sharedInstance()
@@ -28,7 +29,19 @@ class LoginViewController: UIViewController {
         emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         
-        uc.checkUdacityAuth(self)
+        uc.checkUdacityAuth(self, completion: { error in
+            if error != nil{
+                let alert = UIAlertController(title: "Error!", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            }else{
+                NSOperationQueue.mainQueue().addOperationWithBlock{
+                    self.performSegueWithIdentifier("loggedIn", sender: self)
+                }
+            }
+        })
     }
     
     @IBAction func signUpTapped(sender: AnyObject) {
@@ -45,12 +58,32 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginTapped(sender: AnyObject) {
         passwordField.resignFirstResponder()
+        toggleActivityIndicator()
         if emailField.text == "" || passwordField.text == "" {
+            toggleActivityIndicator()
             print("Incomplete form.")
         }else{
-            overlayView.hidden = false
-            uc.udacityAuth(emailField.text!, password: passwordField.text!, vc: self)
+            uc.udacityAuth(emailField.text!, password: passwordField.text!, vc: self, completion: { error in
+                if error != nil{
+                    self.toggleActivityIndicator()
+                    let alert = UIAlertController(title: "Error!", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                }else{
+                    self.toggleActivityIndicator()
+                    NSOperationQueue.mainQueue().addOperationWithBlock{
+                        self.performSegueWithIdentifier("loggedIn", sender: self)
+                    }
+                }
+            })
         }
+    }
+    
+    func toggleActivityIndicator(){
+        self.overlayView.hidden = !self.overlayView.hidden
+        self.activityIndicator.isAnimating() ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
     }
 
 }

@@ -33,7 +33,7 @@ class ListViewController: UIViewController {
     }
     
     @IBAction func refreshTapped(sender: AnyObject) {
-        pc.getStudents({error in
+        pc.getStudents("?order=-updatedAt&limit=100", completion: {error in
             if error != nil {
                 let alert = UIAlertController(title: "Error", message: "Network Error!", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))

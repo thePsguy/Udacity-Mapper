@@ -18,6 +18,7 @@ class InfoPostViewController: UIViewController {
     @IBOutlet weak var userURL: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let uc = udacityClient.sharedInstance()
     let pc = parseClient.sharedInstance()
@@ -48,7 +49,8 @@ class InfoPostViewController: UIViewController {
     }
     
     @IBAction func findTapped(sender: AnyObject) {
-        self.overlayView.hidden = false
+        toggleActivityIndicator()
+        self.activityIndicator.startAnimating()
         let locationString = locationField.text!
         CLGeocoder.init().geocodeAddressString(locationString, completionHandler:{(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
             if(error == nil){
@@ -74,12 +76,12 @@ class InfoPostViewController: UIViewController {
                 self.submitButton.hidden = false
                 
                 let region = MKCoordinateRegion(center: place.coordinate, span: MKCoordinateSpan(latitudeDelta: 6.0, longitudeDelta: 6.0))
-                self.overlayView.hidden = true
+                self.toggleActivityIndicator()
                 self.mapView.addAnnotation(place)
                 self.mapView.setRegion(region, animated: true)
             }else{
-                self.overlayView.hidden = true
-                let alert = UIAlertController(title: "ERROR!", message: "Geocoding Network Error.", preferredStyle: UIAlertControllerStyle.Alert)
+                self.toggleActivityIndicator()
+                let alert = UIAlertController(title: "ERROR!", message: "Geocoding Error.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
                 }))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -90,8 +92,7 @@ class InfoPostViewController: UIViewController {
     
     @IBAction func submitTapped(sender: AnyObject) {
         
-        self.overlayView.hidden = false
-        
+        toggleActivityIndicator()
         if userURL.text?.characters.count > 10 && userURL.text! != "http://yourLink.here"{
             pc.postPin(userObject, lat: String(locationData.latitude), long: String(locationData.longitude), mapString: formattedAddress, mediaUrl: userURL.text!, completion: {error in
                 if(error != nil){
@@ -102,12 +103,18 @@ class InfoPostViewController: UIViewController {
                 }
             })
         }else{
-            self.overlayView.hidden = true
+            self.toggleActivityIndicator()
             let alert = UIAlertController(title: "Incorrect URL", message: "Please Enter Correct URL", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
             }))
             self.presentViewController(alert, animated: true, completion: nil)
         }
+    }
+    
+    
+    func toggleActivityIndicator(){
+        self.overlayView.hidden = !self.overlayView.hidden
+        self.activityIndicator.isAnimating() ? self.activityIndicator.stopAnimating() : self.activityIndicator.startAnimating()
     }
 }
 

@@ -36,11 +36,13 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func refreshTapped(sender: AnyObject) {
-        pc.getStudents({error in
+        pc.getStudents("?order=-updatedAt&limit=100", completion: {error in
             if error != nil {
-                let alert = UIAlertController(title: "Error", message: "Network Error!", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                dispatch_async(dispatch_get_main_queue(), {
+                    let alert = UIAlertController(title: "Error", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                })
             }else{
                 print("Students received.")
                 self.populateMap()

@@ -11,7 +11,7 @@ import UIKit
 
 extension udacityClient {
 
-    func udacityAuth(username: String, password: String, vc: LoginViewController){
+    func udacityAuth(username: String, password: String, vc: LoginViewController, completion: (error: String?) -> Void){
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -21,32 +21,23 @@ extension udacityClient {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error…
-                let alert = UIAlertController(title: "Error", message: "Network Error!", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    vc.presentViewController(alert, animated: true, completion: nil)
-                }
-                
+                completion(error: "Network Error.")
                 return
             }
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
             let parsed = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments) as! NSDictionary
             if parsed["error"] == nil && parsed["account"]!["registered"]! as! Bool == true{
                 let uid = Int(parsed["account"]!["key"]! as! String)!
-                self.getUserDataForID(uid, vc: vc)
+                self.getUserDataForID(uid, vc: vc, completion: completion)
             }
             else if parsed["error"] != nil{
-                let alert = UIAlertController(title: "Error!", message: parsed["error"] as? String, preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    vc.presentViewController(alert, animated: true, completion: nil)
-                }
+                completion(error: parsed["error"] as? String)
             }
         }
         task.resume()
     }
     
-    func checkUdacityAuth(vc: LoginViewController){
+    func checkUdacityAuth(vc: LoginViewController, completion: (error: String?) -> Void){
         let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
         for cookie in sharedCookieStorage.cookies! {
             if cookie.name == "sso_auth" && cookie.sessionOnly == false && NSDate.init().compare(cookie.expiresDate!) == .OrderedAscending && cookie.domain == ".udacity.com"{
@@ -69,7 +60,7 @@ extension udacityClient {
                             
                             alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
                                 vc.overlayView.hidden = false
-                                self.getUserDataForID(uid, vc: vc)
+                                self.getUserDataForID(uid, vc: vc, completion: completion)
                             }))
                             
                             alert.addAction(UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(action: UIAlertAction) in
@@ -88,7 +79,7 @@ extension udacityClient {
         }
     }
     
-    func getUserDataForID(userID: Int, vc: LoginViewController){
+    func getUserDataForID(userID: Int, vc: LoginViewController, completion: (error: String?) -> Void){
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/" + String(userID))!)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -102,9 +93,7 @@ extension udacityClient {
             appDel.userObject.id = userID
             appDel.userObject.firstName = parsed["user"]!!["first_name"]! as! String
             appDel.userObject.lastName = parsed["user"]!!["last_name"]! as! String
-            NSOperationQueue.mainQueue().addOperationWithBlock{
-                vc.performSegueWithIdentifier("loggedIn", sender: self)
-            }
+            completion(error: nil)
         }
         task.resume()
     }
