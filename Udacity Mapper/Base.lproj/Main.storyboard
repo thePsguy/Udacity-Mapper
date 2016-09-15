@@ -106,7 +106,7 @@
                                     <constraint firstItem="lPf-wT-poa" firstAttribute="leading" secondItem="yWH-yh-QxY" secondAttribute="leading" id="yIA-0a-q61"/>
                                 </constraints>
                             </stackView>
-                            <view alpha="0.71999999999999997" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Sq-7e-dSP">
+                            <view hidden="YES" alpha="0.71999999999999997" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Sq-7e-dSP">
                                 <rect key="frame" x="0.0" y="-5" width="600" height="605"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="0xp-XS-9z7">

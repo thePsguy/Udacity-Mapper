@@ -32,22 +32,18 @@ final class parseClient {
                 return
             }
             let dataDict = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-            print(dataDict["error"])
             if(dataDict["error"]! != nil){
-                print("1")
                 completion(error: "Parse Error: " + (dataDict["error"] as! String))
             }else{
                 let students = student.studentsFromResults(dataDict["results"] as! [[String : AnyObject]])
-//                (UIApplication.sharedApplication().delegate as! AppDelegate).students = students
                 studentStorage.sharedInstance().setStudentData(students)
-                print("0")
                 completion(error: nil)
             }
         }
         task.resume()
     }
     
-    func postPin(dat: user, lat: String, long: String, mapString: String, mediaUrl: String, completion:(error: NSError?) -> Void){
+    func postPin(dat: user, lat: String, long: String, mapString: String, mediaUrl: String, completion:(error: String?) -> Void){
         let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.HTTPMethod = "POST"
         request.addValue(Constants.ApplicationID, forHTTPHeaderField: Constants.AppIDField)
@@ -60,10 +56,16 @@ final class parseClient {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error…
-                completion(error: error)
+                completion(error: "Network Error")
             }
-            print("Object Created.")
-            completion(error: nil)
+            let dataDict = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+            if(dataDict["error"]! != nil){
+                completion(error: "Error: " + (dataDict["error"] as! String))
+            }else{
+                print("Object Created.")
+                completion(error: nil)
+            }
+
         }
         task.resume()
     }

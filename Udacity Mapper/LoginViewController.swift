@@ -18,10 +18,6 @@ class LoginViewController: UIViewController {
     let uc = udacityClient.sharedInstance()
     let pc = parseClient.sharedInstance()
     
-    override func viewWillAppear(animated: Bool) {
-        overlayView.hidden = true
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

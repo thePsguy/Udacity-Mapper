@@ -96,11 +96,14 @@ class InfoPostViewController: UIViewController {
         if userURL.text?.characters.count > 10 && userURL.text! != "http://yourLink.here"{
             pc.postPin(userObject, lat: String(locationData.latitude), long: String(locationData.longitude), mapString: formattedAddress, mediaUrl: userURL.text!, completion: {error in
                 if(error != nil){
-                    let alert = UIAlertController(title: "Parse Network Error", message: "Unable not post pin.", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
-                    }))
+                    let alert = UIAlertController(title: "Parse Network Error", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.toggleActivityIndicator()
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
                 }else{
-                    print("Post Complete!")
+                    print("Post Successful!")
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
             })
@@ -112,7 +115,6 @@ class InfoPostViewController: UIViewController {
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
     
     func toggleActivityIndicator(){
         self.overlayView.hidden = !self.overlayView.hidden
