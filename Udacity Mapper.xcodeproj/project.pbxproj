@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D244EE31D8AA07600D276D8 /* StudentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D244EE21D8AA07600D276D8 /* StudentStorage.swift */; };
 		4D5856EF1D8973CB00E68575 /* InfoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5856EE1D8973CB00E68575 /* InfoPostViewController.swift */; };
 		4D5856F11D89A2A700E68575 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5856F01D89A2A700E68575 /* UserObject.swift */; };
 		4D7858191D891D8E0088A62A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7858181D891D8E0088A62A /* MapViewController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D244EE21D8AA07600D276D8 /* StudentStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentStorage.swift; sourceTree = "<group>"; };
 		4D5856EE1D8973CB00E68575 /* InfoPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostViewController.swift; sourceTree = "<group>"; };
 		4D5856F01D89A2A700E68575 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		4D7858181D891D8E0088A62A /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			children = (
 				4DDADDBA1D89485700C190E3 /* ParseClient.swift */,
 				4DDADDBE1D894A1700C190E3 /* Student.swift */,
+				4D244EE21D8AA07600D276D8 /* StudentStorage.swift */,
 				4D5856F01D89A2A700E68575 /* UserObject.swift */,
 			);
 			name = Parse;
@@ -241,6 +244,7 @@
 				4D7858191D891D8E0088A62A /* MapViewController.swift in Sources */,
 				4D8A86EC1D884D03009CBB29 /* CoolTextField.swift in Sources */,
 				4D5856EF1D8973CB00E68575 /* InfoPostViewController.swift in Sources */,
+				4D244EE31D8AA07600D276D8 /* StudentStorage.swift in Sources */,
 				4D78581D1D8926170088A62A /* ListViewController.swift in Sources */,
 				4DDADDB61D893FCD00C190E3 /* UdacityClient.swift in Sources */,
 			);

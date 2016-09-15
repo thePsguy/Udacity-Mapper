@@ -58,8 +58,6 @@ struct student {
     }
 }
 
-// MARK: - TMDBMovie: Equatable
-
 extension student: Equatable {}
 
 func ==(lhs: student, rhs: student) -> Bool {

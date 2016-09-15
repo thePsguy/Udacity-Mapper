@@ -65,11 +65,11 @@ class LoginViewController: UIViewController {
         }else{
             uc.udacityAuth(emailField.text!, password: passwordField.text!, vc: self, completion: { error in
                 if error != nil{
-                    self.toggleActivityIndicator()
                     let alert = UIAlertController(title: "Error!", message: error, preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
                     NSOperationQueue.mainQueue().addOperationWithBlock {
-                    self.presentViewController(alert, animated: true, completion: nil)
+                        self.toggleActivityIndicator()
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }else{
                     self.toggleActivityIndicator()

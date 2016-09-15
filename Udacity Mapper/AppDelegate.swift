@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    var students = [student]()
+//    var students = [student]()
     
     var userObject = user()
 

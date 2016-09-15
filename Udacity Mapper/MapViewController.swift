@@ -12,7 +12,7 @@ import MapKit
 
 class MapViewController: UIViewController {
     var students: [student] {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).students
+        return studentStorage.sharedInstance().getStudentData()
     }
 
     var annotations = [MKPointAnnotation]()

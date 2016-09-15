@@ -38,7 +38,8 @@ final class parseClient {
                 completion(error: "Parse Error: " + (dataDict["error"] as! String))
             }else{
                 let students = student.studentsFromResults(dataDict["results"] as! [[String : AnyObject]])
-                (UIApplication.sharedApplication().delegate as! AppDelegate).students = students
+//                (UIApplication.sharedApplication().delegate as! AppDelegate).students = students
+                studentStorage.sharedInstance().setStudentData(students)
                 print("0")
                 completion(error: nil)
             }

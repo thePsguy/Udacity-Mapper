@@ -59,7 +59,7 @@ extension udacityClient {
                             let alert = UIAlertController(title: "Existing Session Found", message: "Log in automatically?", preferredStyle: UIAlertControllerStyle.Alert)
                             
                             alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
-                                vc.overlayView.hidden = false
+                                vc.toggleActivityIndicator()
                                 self.getUserDataForID(uid, vc: vc, completion: completion)
                             }))
                             

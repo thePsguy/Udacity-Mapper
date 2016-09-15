@@ -96,7 +96,9 @@ class InfoPostViewController: UIViewController {
         if userURL.text?.characters.count > 10 && userURL.text! != "http://yourLink.here"{
             pc.postPin(userObject, lat: String(locationData.latitude), long: String(locationData.longitude), mapString: formattedAddress, mediaUrl: userURL.text!, completion: {error in
                 if(error != nil){
-                    print(error)
+                    let alert = UIAlertController(title: "Parse Network Error", message: "Unable not post pin.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction.init(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {(action: UIAlertAction) in
+                    }))
                 }else{
                     print("Post Complete!")
                     self.dismissViewControllerAnimated(true, completion: nil)

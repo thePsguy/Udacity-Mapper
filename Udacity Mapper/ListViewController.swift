@@ -12,7 +12,7 @@ import UIKit
 class ListViewController: UIViewController {
 
     var students: [student] {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).students
+        return studentStorage.sharedInstance().getStudentData()
     }
     let uc = udacityClient.sharedInstance()
     let pc = parseClient.sharedInstance()
